@@ -1,8 +1,26 @@
 set (H264_INCLUDE_DIR /usr/local/include/h264bitstream)
 set (H264_LIB_DIR /usr/local/lib)
 
-set(H264_FOUND TRUE)
-  
+find_path(H264_INCLUDE_DIR
+    NAMES
+        h264_avcc.h
+    PATHS
+        /usr/include
+        /usr/local/include
+)
+
+find_path(H264_LIB_DIR
+    NAMES
+        h264bitstream
+    PATHS
+        /usr/lib
+        /usr/local/lib
+)
+
+if (RTAUDIO_LIBRARIES AND RTAUDIO_INCLUDE_DIRS)
+    set(H264_FOUND TRUE)
+endif()
+
 if (H264_FOUND)
     if (NOT h264_FIND_QUIETLY)
         message(STATUS "Found h264bitstream:")
