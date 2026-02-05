@@ -11,7 +11,7 @@ find_path(H264_INCLUDE_DIR
 
 find_path(H264_LIB_DIR
     NAMES
-        h264bitstream
+        libh264bitstream.so
     PATHS
         /usr/lib
         /usr/local/lib
