@@ -19,7 +19,7 @@ NavigationStatusService::NavigationStatusService(boost::asio::io_context& ioServ
 
 void NavigationStatusService::start()
 {
-    strand_.dispatch([this, self = this->shared_from_this()]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this()]() {
         OPENAUTO_LOG(info) << "[NavigationStatusService] start.";
         channel_->receive(this->shared_from_this());
     });
@@ -27,7 +27,7 @@ void NavigationStatusService::start()
 
 void NavigationStatusService::stop()
 {
-    strand_.dispatch([this, self = this->shared_from_this()]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this()]() {
         OPENAUTO_LOG(info) << "[NavigationStatusService] stop.";
     });
 }

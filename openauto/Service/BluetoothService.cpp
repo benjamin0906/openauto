@@ -34,7 +34,7 @@ BluetoothService::BluetoothService(boost::asio::io_context& ioService, aasdk::me
 
 void BluetoothService::start()
 {
-    strand_.dispatch([this, self = this->shared_from_this()]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this()]() {
         OPENAUTO_LOG(info) << "[BluetoothService] start.";
         channel_->receive(this->shared_from_this());
     });
@@ -42,7 +42,7 @@ void BluetoothService::start()
 
 void BluetoothService::stop()
 {
-    strand_.dispatch([this, self = this->shared_from_this()]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this()]() {
         OPENAUTO_LOG(info) << "[BluetoothService] stop.";
         bluetoothDevice_->stop();
     });

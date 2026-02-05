@@ -35,7 +35,7 @@ SensorService::SensorService(boost::asio::io_context& ioService, aasdk::messenge
 
 void SensorService::start()
 {
-    strand_.dispatch([this, self = this->shared_from_this()]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this()]() {
         OPENAUTO_LOG(info) << "[SensorService] start.";
         channel_->receive(this->shared_from_this());
     });
@@ -43,7 +43,7 @@ void SensorService::start()
 
 void SensorService::stop()
 {
-    strand_.dispatch([this, self = this->shared_from_this()]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this()]() {
         OPENAUTO_LOG(info) << "[SensorService] stop.";
     });
 }

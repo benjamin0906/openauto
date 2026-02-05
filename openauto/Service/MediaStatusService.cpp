@@ -16,7 +16,7 @@ MediaStatusService::MediaStatusService(boost::asio::io_context& ioService, aasdk
 
 void MediaStatusService::start()
 {
-    strand_.dispatch([this, self = this->shared_from_this()]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this()]() {
         OPENAUTO_LOG(info) << "[MediaStatusService] start.";
         channel_->receive(this->shared_from_this());
     });
@@ -24,7 +24,7 @@ void MediaStatusService::start()
 
 void MediaStatusService::stop()
 {
-    strand_.dispatch([this, self = this->shared_from_this()]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this()]() {
         OPENAUTO_LOG(info) << "[MediaStatusService] stop.";
     });
 }

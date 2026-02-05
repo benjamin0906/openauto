@@ -25,7 +25,7 @@
 namespace openauto
 {
 
-App::App(boost::asio::io_service& ioService, aasdk::usb::USBWrapper& usbWrapper, aasdk::tcp::ITCPWrapper& tcpWrapper, openauto::service::IAndroidAutoEntityFactory& androidAutoEntityFactory,
+App::App(boost::asio::io_context& ioService, aasdk::usb::USBWrapper& usbWrapper, aasdk::tcp::ITCPWrapper& tcpWrapper, openauto::service::IAndroidAutoEntityFactory& androidAutoEntityFactory,
          aasdk::usb::IUSBHub::Pointer usbHub, aasdk::usb::IConnectedAccessoriesEnumerator::Pointer connectedAccessoriesEnumerator)
     : ioService_(ioService)
     , usbWrapper_(usbWrapper)
@@ -47,7 +47,7 @@ void App::waitForDevice(bool enumerate)
 
     if(enumerate)
     {
-        strand_.dispatch([this, self = this->shared_from_this()]() {
+        boost::asio::dispatch(strand_, [this, self = this->shared_from_this()]() {
             this->enumerateDevices();
         });
     }
@@ -57,7 +57,7 @@ void App::start(aasdk::tcp::ITCPEndpoint::SocketPointer socket)
 {
     OPENAUTO_LOG(info) << "[App] Wireless Device connected.";
 
-    strand_.dispatch([this, self = this->shared_from_this(), socket = std::move(socket)]() mutable {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this(), socket = std::move(socket)]() mutable {
         if(androidAutoEntity_ != nullptr)
         {
             tcpWrapper_.close(*socket);
@@ -86,7 +86,7 @@ void App::start(aasdk::tcp::ITCPEndpoint::SocketPointer socket)
 
 void App::stop()
 {
-    strand_.dispatch([this, self = this->shared_from_this()]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this()]() {
         isStopped_ = true;
         connectedAccessoriesEnumerator_->cancel();
         usbHub_->cancel();
@@ -159,7 +159,7 @@ void App::waitForWirelessDevice()
 
 void App::onAndroidAutoQuit()
 {
-    strand_.dispatch([this, self = this->shared_from_this()]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this()]() {
         OPENAUTO_LOG(info) << "[App] quit.";
 
         androidAutoEntity_->stop();

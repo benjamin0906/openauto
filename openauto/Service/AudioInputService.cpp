@@ -36,7 +36,7 @@ AudioInputService::AudioInputService(boost::asio::io_context& ioService, aasdk::
 
 void AudioInputService::start()
 {
-    strand_.dispatch([this, self = this->shared_from_this()]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this()]() {
         OPENAUTO_LOG(info) << "[AudioInputService] start.";
         channel_->receive(this->shared_from_this());
     });
@@ -44,7 +44,7 @@ void AudioInputService::start()
 
 void AudioInputService::stop()
 {
-    strand_.dispatch([this, self = this->shared_from_this()]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this()]() {
         OPENAUTO_LOG(info) << "[AudioInputService] stop.";
         audioInput_->stop();
     });

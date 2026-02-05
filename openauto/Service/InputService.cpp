@@ -35,7 +35,7 @@ InputService::InputService(boost::asio::io_context& ioService, aasdk::messenger:
 
 void InputService::start()
 {
-    strand_.dispatch([this, self = this->shared_from_this()]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this()]() {
         OPENAUTO_LOG(info) << "[InputService] start.";
         channel_->receive(this->shared_from_this());
     });
@@ -44,7 +44,7 @@ void InputService::start()
 
 void InputService::stop()
 {
-    strand_.dispatch([this, self = this->shared_from_this()]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this()]() {
         OPENAUTO_LOG(info) << "[InputService] stop.";
         inputDevice_->stop();
     });
@@ -138,7 +138,7 @@ void InputService::onButtonEvent(const projection::ButtonEvent& event)
     if(!serviceActive) return;
     auto timestamp = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch());
 
-    strand_.dispatch([this, self = this->shared_from_this(), event = std::move(event), timestamp = std::move(timestamp)]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this(), event = std::move(event), timestamp = std::move(timestamp)]() {
         aasdk::proto::messages::InputEventIndication inputEventIndication;
         inputEventIndication.set_timestamp(timestamp.count());
 
@@ -187,7 +187,7 @@ void InputService::sendButtonPress(aasdk::proto::enums::ButtonCode::Enum buttonC
 void InputService::onTouchEvent(aasdk::proto::messages::InputEventIndication inputEventIndication)
 {
 
-    strand_.dispatch([this, self = this->shared_from_this(), inputEventIndication = std::move(inputEventIndication)]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this(), inputEventIndication = std::move(inputEventIndication)]() {
 
         auto promise = aasdk::channel::SendPromise::defer(strand_);
         promise->then([]() {}, std::bind(&InputService::onChannelError, this->shared_from_this(), std::placeholders::_1));
@@ -199,7 +199,7 @@ void InputService::onMouseEvent(const projection::TouchEvent& event)
 {
     auto timestamp = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch());
 
-    strand_.dispatch([this, self = this->shared_from_this(), event = std::move(event), timestamp = std::move(timestamp)]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this(), event = std::move(event), timestamp = std::move(timestamp)]() {
         aasdk::proto::messages::InputEventIndication inputEventIndication;
         inputEventIndication.set_timestamp(timestamp.count());
 

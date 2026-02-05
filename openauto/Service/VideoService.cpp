@@ -35,7 +35,7 @@ VideoService::VideoService(boost::asio::io_context& ioService, aasdk::messenger:
 
 void VideoService::start()
 {
-    strand_.dispatch([this, self = this->shared_from_this()]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this()]() {
         OPENAUTO_LOG(info) << "[VideoService] start.";
         channel_->receive(this->shared_from_this());
     });
@@ -43,7 +43,7 @@ void VideoService::start()
 
 void VideoService::stop()
 {
-    strand_.dispatch([this, self = this->shared_from_this()]() {
+    boost::asio::dispatch(strand_, [this, self = this->shared_from_this()]() {
         OPENAUTO_LOG(info) << "[VideoService] stop.";
         videoOutput_->stop();
     });
