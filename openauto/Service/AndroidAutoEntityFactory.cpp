@@ -33,7 +33,7 @@ namespace openauto
 namespace service
 {
 
-AndroidAutoEntityFactory::AndroidAutoEntityFactory(boost::asio::io_service& ioService,
+AndroidAutoEntityFactory::AndroidAutoEntityFactory(boost::asio::io_context& ioService,
                                                    configuration::IConfiguration::Pointer configuration,
                                                    IServiceFactory& serviceFactory)
     : ioService_(ioService)

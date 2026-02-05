@@ -38,7 +38,7 @@ class IAndroidAutoInterface;
 class ServiceFactory : public IServiceFactory
 {
 public:
-    ServiceFactory(boost::asio::io_service& ioService, configuration::IConfiguration::Pointer configuration, QWidget* activeArea=nullptr, std::function<void(bool)> activeCallback=nullptr, bool nightMode=false);
+    ServiceFactory(boost::asio::io_context& ioService, configuration::IConfiguration::Pointer configuration, QWidget* activeArea=nullptr, std::function<void(bool)> activeCallback=nullptr, bool nightMode=false);
     ServiceList create(aasdk::messenger::IMessenger::Pointer messenger) override;
     void setOpacity(unsigned int alpha);
     void resize();
@@ -59,7 +59,7 @@ private:
     std::shared_ptr<InputService> createInputService(aasdk::messenger::IMessenger::Pointer messenger);
     void createAudioServices(ServiceList& serviceList, aasdk::messenger::IMessenger::Pointer messenger);
 
-    boost::asio::io_service& ioService_;
+    boost::asio::io_context& ioService_;
     configuration::IConfiguration::Pointer configuration_;
     QWidget* activeArea_;
     QRect screenGeometry_;

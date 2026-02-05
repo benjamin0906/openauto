@@ -23,7 +23,7 @@ namespace openauto
 namespace service
 {
 
-Pinger::Pinger(boost::asio::io_service& ioService, time_t duration)
+Pinger::Pinger(boost::asio::io_context& ioService, time_t duration)
     : strand_(ioService)
     , timer_(ioService)
     , duration_(duration)

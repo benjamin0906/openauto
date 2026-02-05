@@ -48,7 +48,7 @@ namespace openauto
 {
 namespace service
 {
-ServiceFactory::ServiceFactory(boost::asio::io_service& ioService, configuration::IConfiguration::Pointer configuration, QWidget *activeArea, std::function<void(bool)> activeCallback, bool nightMode)
+ServiceFactory::ServiceFactory(boost::asio::io_context& ioService, configuration::IConfiguration::Pointer configuration, QWidget *activeArea, std::function<void(bool)> activeCallback, bool nightMode)
     : ioService_(ioService)
     , configuration_(std::move(configuration))
     , activeArea_(activeArea)

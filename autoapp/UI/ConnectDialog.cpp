@@ -7,7 +7,7 @@ namespace autoapp
 namespace ui
 {
 
-ConnectDialog::ConnectDialog(boost::asio::io_service& ioService, aasdk::tcp::ITCPWrapper& tcpWrapper, openauto::configuration::IRecentAddressesList& recentAddressesList, QWidget *parent)
+ConnectDialog::ConnectDialog(boost::asio::io_context& ioService, aasdk::tcp::ITCPWrapper& tcpWrapper, openauto::configuration::IRecentAddressesList& recentAddressesList, QWidget *parent)
     : QDialog(parent)
     , ioService_(ioService)
     , tcpWrapper_(tcpWrapper)

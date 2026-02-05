@@ -10,7 +10,7 @@ namespace openauto
 namespace service
 {
 
-NavigationStatusService::NavigationStatusService(boost::asio::io_service& ioService, aasdk::messenger::IMessenger::Pointer messenger, IAndroidAutoInterface* aa_interface)
+NavigationStatusService::NavigationStatusService(boost::asio::io_context& ioService, aasdk::messenger::IMessenger::Pointer messenger, IAndroidAutoInterface* aa_interface)
     : strand_(ioService)
     , channel_(std::make_shared<aasdk::channel::navigation::NavigationStatusServiceChannel>(strand_, std::move(messenger)))
 {

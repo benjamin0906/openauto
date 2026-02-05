@@ -24,7 +24,7 @@ namespace openauto
 namespace service
 {
 
-BluetoothService::BluetoothService(boost::asio::io_service& ioService, aasdk::messenger::IMessenger::Pointer messenger, projection::IBluetoothDevice::Pointer bluetoothDevice)
+BluetoothService::BluetoothService(boost::asio::io_context& ioService, aasdk::messenger::IMessenger::Pointer messenger, projection::IBluetoothDevice::Pointer bluetoothDevice)
     : strand_(ioService)
     , channel_(std::make_shared<aasdk::channel::bluetooth::BluetoothServiceChannel>(strand_, std::move(messenger)))
     , bluetoothDevice_(std::move(bluetoothDevice))

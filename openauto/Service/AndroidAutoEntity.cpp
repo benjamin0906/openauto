@@ -25,7 +25,7 @@ namespace openauto
 namespace service
 {
 
-AndroidAutoEntity::AndroidAutoEntity(boost::asio::io_service& ioService,
+AndroidAutoEntity::AndroidAutoEntity(boost::asio::io_context& ioService,
                                      aasdk::messenger::ICryptor::Pointer cryptor,
                                      aasdk::transport::ITransport::Pointer transport,
                                      aasdk::messenger::IMessenger::Pointer messenger,

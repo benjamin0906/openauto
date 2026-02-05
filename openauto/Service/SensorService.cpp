@@ -25,7 +25,7 @@ namespace openauto
 namespace service
 {
 
-SensorService::SensorService(boost::asio::io_service& ioService, aasdk::messenger::IMessenger::Pointer messenger, bool nightMode)
+SensorService::SensorService(boost::asio::io_context& ioService, aasdk::messenger::IMessenger::Pointer messenger, bool nightMode)
     : strand_(ioService)
     , channel_(std::make_shared<aasdk::channel::sensor::SensorServiceChannel>(strand_, std::move(messenger)))
     , nightMode_(nightMode)

@@ -29,7 +29,7 @@ class IAndroidAutoInterface;
 class NavigationStatusService: public aasdk::channel::navigation::INavigationStatusServiceChannelEventHandler, public IService, public std::enable_shared_from_this<NavigationStatusService>
 {
 public:
-    NavigationStatusService(boost::asio::io_service& ioService, aasdk::messenger::IMessenger::Pointer messenger, IAndroidAutoInterface* aa_interface);
+    NavigationStatusService(boost::asio::io_context& ioService, aasdk::messenger::IMessenger::Pointer messenger, IAndroidAutoInterface* aa_interface);
     void start() override;
     void stop() override;
     void fillFeatures(aasdk::proto::messages::ServiceDiscoveryResponse& response) override;
@@ -44,7 +44,7 @@ public:
 private:
     using std::enable_shared_from_this<NavigationStatusService>::shared_from_this;
 
-    boost::asio::io_service::strand strand_;
+    boost::asio::io_context::strand strand_;
     aasdk::channel::navigation::NavigationStatusServiceChannel::Pointer channel_;
     IAndroidAutoInterface* aa_interface_ = nullptr;
 

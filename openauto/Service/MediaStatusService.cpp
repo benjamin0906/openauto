@@ -7,7 +7,7 @@ namespace openauto
 namespace service
 {
 
-MediaStatusService::MediaStatusService(boost::asio::io_service& ioService, aasdk::messenger::IMessenger::Pointer messenger, IAndroidAutoInterface* aa_interface)
+MediaStatusService::MediaStatusService(boost::asio::io_context& ioService, aasdk::messenger::IMessenger::Pointer messenger, IAndroidAutoInterface* aa_interface)
     : strand_(ioService)
     , channel_(std::make_shared<aasdk::channel::av::MediaStatusServiceChannel>(strand_, std::move(messenger)))
 {

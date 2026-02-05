@@ -34,7 +34,7 @@ class App: public openauto::service::IAndroidAutoEntityEventHandler, public std:
 public:
     typedef std::shared_ptr<App> Pointer;
 
-    App(boost::asio::io_service& ioService, aasdk::usb::USBWrapper& usbWrapper, aasdk::tcp::ITCPWrapper& tcpWrapper, openauto::service::IAndroidAutoEntityFactory& androidAutoEntityFactory,
+    App(boost::asio::io_context& ioService, aasdk::usb::USBWrapper& usbWrapper, aasdk::tcp::ITCPWrapper& tcpWrapper, openauto::service::IAndroidAutoEntityFactory& androidAutoEntityFactory,
         aasdk::usb::IUSBHub::Pointer usbHub, aasdk::usb::IConnectedAccessoriesEnumerator::Pointer connectedAccessoriesEnumerator);
 
     void waitForDevice(bool enumerate = false);
@@ -50,10 +50,10 @@ private:
     void aoapDeviceHandler(aasdk::usb::DeviceHandle deviceHandle);
     void onUSBHubError(const aasdk::error::Error& error);
 
-    boost::asio::io_service& ioService_;
+    boost::asio::io_context& ioService_;
     aasdk::usb::USBWrapper& usbWrapper_;
     aasdk::tcp::ITCPWrapper& tcpWrapper_;
-    boost::asio::io_service::strand strand_;
+    boost::asio::io_context::strand strand_;
     openauto::service::IAndroidAutoEntityFactory& androidAutoEntityFactory_;
     aasdk::usb::IUSBHub::Pointer usbHub_;
     boost::asio::ip::tcp::acceptor acceptor_;
