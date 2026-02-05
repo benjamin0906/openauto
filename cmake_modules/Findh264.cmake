@@ -17,7 +17,7 @@ find_path(H264_LIB_DIR
         /usr/local/lib
 )
 
-if (RTAUDIO_LIBRARIES AND RTAUDIO_INCLUDE_DIRS)
+if (H264_LIB_DIR AND H264_INCLUDE_DIR)
     set(H264_FOUND TRUE)
 endif()
 
