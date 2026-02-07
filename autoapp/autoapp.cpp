@@ -38,7 +38,7 @@
 using namespace openauto;
 using ThreadPool = std::vector<std::thread>;
 
-void startUSBWorkers(boost::asio::io_service& ioService, libusb_context* usbContext, ThreadPool& threadPool)
+void startUSBWorkers(boost::asio::io_context& ioService, libusb_context* usbContext, ThreadPool& threadPool)
 {
     auto usbWorker = [&ioService, usbContext]() {
         timeval libusbEventTimeout{180, 0};
@@ -55,7 +55,7 @@ void startUSBWorkers(boost::asio::io_service& ioService, libusb_context* usbCont
     threadPool.emplace_back(usbWorker);
 }
 
-void startIOServiceWorkers(boost::asio::io_service& ioService, ThreadPool& threadPool)
+void startIOServiceWorkers(boost::asio::io_context& ioService, ThreadPool& threadPool)
 {
     auto ioServiceWorker = [&ioService]() {
         ioService.run();
@@ -76,8 +76,8 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    boost::asio::io_service ioService;
-    boost::asio::io_service::work work(ioService);
+    boost::asio::io_context ioService;
+    boost::asio::io_context::work work(ioService);
     std::vector<std::thread> threadPool;
     startUSBWorkers(ioService, usbContext, threadPool);
     startIOServiceWorkers(ioService, threadPool);
