@@ -124,11 +124,11 @@ target_link_libraries(openauto PUBLIC
         )
 
 install(TARGETS openauto
-        LIBRARY DESTINATION lib)
+        LIBRARY DESTINATION ${libdir})
 
 set_target_properties(openauto
         PROPERTIES INSTALL_RPATH_USE_LINK_PATH 1)
 
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/openauto DESTINATION include)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/btservice DESTINATION include)
-install(FILES ${CMAKE_SOURCE_DIR}/include/OpenautoLog.hpp DESTINATION include)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/openauto DESTINATION ${includedir})
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/btservice DESTINATION ${includedir})
+install(FILES ${CMAKE_SOURCE_DIR}/include/OpenautoLog.hpp DESTINATION ${includedir})

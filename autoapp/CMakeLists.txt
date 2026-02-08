@@ -29,4 +29,4 @@ set_target_properties(autoapp
         PROPERTIES INSTALL_RPATH_USE_LINK_PATH 1)
 
 install(TARGETS autoapp
-        RUNTIME DESTINATION bin)
+        RUNTIME DESTINATION ${bindir})

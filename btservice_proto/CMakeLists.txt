@@ -7,7 +7,7 @@ protobuf_generate_cpp(proto_sources proto_headers ${proto_files})
 add_library(btservice_proto SHARED ${proto_headers} ${proto_sources})
 target_link_libraries(btservice_proto ${PROTOBUF_LIBRARIES})
 
-install(TARGETS btservice_proto DESTINATION lib)
-install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} DESTINATION include
+install(TARGETS btservice_proto DESTINATION ${libdir})
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} DESTINATION ${includedir}
         FILES_MATCHING PATTERN *.h
         PATTERN CMakeFiles EXCLUDE)

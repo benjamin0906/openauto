@@ -77,7 +77,7 @@ int main(int argc, char* argv[])
     }
 
     boost::asio::io_context ioService;
-    boost::asio::io_context::work work(ioService);
+    auto work_guard = boost::asio::make_work_guard(ioService);
     std::vector<std::thread> threadPool;
     startUSBWorkers(ioService, usbContext, threadPool);
     startIOServiceWorkers(ioService, threadPool);

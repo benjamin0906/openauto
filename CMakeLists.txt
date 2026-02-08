@@ -4,6 +4,8 @@ set (openauto_VERSION_MAJOR 2)
 set (openauto_VERSION_MINOR 1)
 set (openauto_VERSION_PATCH 0)
 
+include(GNUInstallDirs)
+
 project(openauto 
 VERSION ${openauto_VERSION_MAJOR}.${openauto_VERSION_MINOR}.${openauto_VERSION_PATCH}
 LANGUAGES CXX)
@@ -23,6 +25,10 @@ set(base_directory ${CMAKE_CURRENT_SOURCE_DIR})
 #set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 #set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 #set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+set(prefix ${CMAKE_INSTALL_PREFIX})
+set(libdir ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/openauto)
+set(includedir ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR}/openauto)
+set(bindir ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/openauto)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake_modules/")
 SET(CMAKE_CXX_STANDARD 17)
@@ -94,7 +100,7 @@ set_target_properties(openauto PROPERTIES VERSION ${openauto_VERSION_STRING}
 message(INFO " Project Version: ${openauto_VERSION_STRING}")
 
 #install(DIRECTORY lib DESTINATION lib COMPONENT libraries)
-install(DIRECTORY include DESTINATION include COMPONENT headers)
+install(DIRECTORY include DESTINATION ${includedir} COMPONENT headers)
 #install(DIRECTORY bin DESTINATION bin COMPONENT applications)
 
 SET(CPACK_GENERATOR "DEB")
