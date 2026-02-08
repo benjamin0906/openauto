@@ -93,9 +93,9 @@ set_target_properties(openauto PROPERTIES VERSION ${openauto_VERSION_STRING}
                                           SOVERSION ${openauto_VERSION_MAJOR})
 message(INFO " Project Version: ${openauto_VERSION_STRING}")
 
-install(DIRECTORY lib DESTINATION lib COMPONENT libraries)
+#install(DIRECTORY lib DESTINATION lib COMPONENT libraries)
 install(DIRECTORY include DESTINATION include COMPONENT headers)
-install(DIRECTORY bin DESTINATION bin COMPONENT applications)
+#install(DIRECTORY bin DESTINATION bin COMPONENT applications)
 
 SET(CPACK_GENERATOR "DEB")
 SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "OpenDsh") #required
