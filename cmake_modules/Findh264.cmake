@@ -1,25 +1,27 @@
-set (H264_INCLUDE_DIR /usr/local/include/h264bitstream)
-set (H264_LIB_DIR /usr/local/lib)
+set(H264_DIR ~/h264bitstream)
 
 find_path(H264_INCLUDE_DIR
     NAMES
         h264_avcc.h
-    PATHS
-        /usr/include
-        /usr/local/include
+    PATHS ${H264_DIR}
+    PATH_SUFFIXES include
+    
 )
 
 find_path(H264_LIB_DIR
     NAMES
-        libh264bitstream.so
-    PATHS
-        /usr/lib
-        /usr/local/lib
+        libh264bitstream.a
+    PATHS ${H264_DIR}
+    PATH_SUFFIXES lib
 )
 
 if (H264_LIB_DIR AND H264_INCLUDE_DIR)
     set(H264_FOUND TRUE)
 endif()
+
+message(" - H264_DIR: ${H264_DIR}")
+message(" - Includes: ${H264_INCLUDE_DIR}")
+message(" - Libraries: ${H264_LIB_DIR}")
 
 if (H264_FOUND)
     if (NOT h264_FIND_QUIETLY)
